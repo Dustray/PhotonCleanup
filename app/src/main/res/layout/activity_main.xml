@@ -7,23 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/main_viewpager"
+    <include
+        layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </android.support.v4.view.ViewPager>
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

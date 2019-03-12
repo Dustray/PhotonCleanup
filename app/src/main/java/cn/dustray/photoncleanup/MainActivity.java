@@ -7,15 +7,15 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import cn.dustray.adapter.MainViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements MemoryFragment.OnFragmentInteractionListener {
 
     private ViewPager mainViewPager;
-    private ActionBar actionBar;
+    private Toolbar toolbar;
     private BottomNavigationView navigation;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,16 +47,15 @@ public class MainActivity extends AppCompatActivity implements MemoryFragment.On
         public void onPageSelected(int i) {
             switch (i) {
                 case 0:
-
-                    actionBar.setTitle("应用列表");
+                    toolbar.setTitle("应用管理");
                     navigation.setSelectedItemId(R.id.navigation_home);
                     break;
                 case 1:
-                    actionBar.setTitle("垃圾清理");
+                    toolbar.setTitle("垃圾清理");
                     navigation.setSelectedItemId(R.id.navigation_dashboard);
                     break;
                 case 2:
-                    actionBar.setTitle("游戏工具");
+                    toolbar.setTitle("游戏工具");
                     navigation.setSelectedItemId(R.id.navigation_notifications);
                     break;
 
@@ -75,8 +74,10 @@ public class MainActivity extends AppCompatActivity implements MemoryFragment.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        actionBar=getSupportActionBar();
-        actionBar.setElevation(0);//去掉ActionBar阴影
+
+         toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("应用管理");
+
         mainViewPager = findViewById(R.id.main_viewpager);
         mainViewPager.addOnPageChangeListener(mOnPageChangeListener);
         mainViewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager()));
