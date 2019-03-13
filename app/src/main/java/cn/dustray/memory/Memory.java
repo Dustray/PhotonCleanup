@@ -3,6 +3,8 @@ package cn.dustray.memory;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -13,6 +15,8 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Memory {
@@ -64,6 +68,7 @@ public class Memory {
             appInfo.setPackageName(packageInfo.packageName);
             appInfo.setVersionCode(packageInfo.versionCode);
             appInfo.setVersionName(packageInfo.versionName);
+            //appInfo.setMemorySize(packageInfo.);
             Log.i("AppMemory", "应用名:"+ appInfo.getAppName());
             //去除系统应用
 //            if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
@@ -133,30 +138,33 @@ public class Memory {
 
         return resule;
     }
-//    private String getAllAppInfoNew() {
-//        Calendar calendar=Calendar.getInstance();
-//        calendar.setTime(new Date());
-//        long endt = calendar.getTimeInMillis();//结束时间
-//        calendar.add(Calendar.DAY_OF_MONTH, -1);//时间间隔为一个月
-//        long statt = calendar.getTimeInMillis();//开始时间
-//        UsageStatsManager usageStatsManager=(UsageStatsManager) getSystemService(USAGE_STATS_SERVICE);
-//        //获取一个月内的信息
-//        List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY,statt,endt);
-//
-//        if (queryUsageStats == null || queryUsageStats.isEmpty()) {
-//            return null;
-//        }
-//
-//        UsageStats recentStats = null;
-//        for (UsageStats usageStats : queryUsageStats) {
-//
+
+
+    private String getAppUsageTime(Activity activity) {
+
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(new Date());
+        long endt = calendar.getTimeInMillis();//结束时间
+        calendar.add(Calendar.DAY_OF_MONTH, -1);//时间间隔为一个月
+        long statt = calendar.getTimeInMillis();//开始时间
+        UsageStatsManager usageStatsManager=(UsageStatsManager)activity.getSystemService(Activity.USAGE_STATS_SERVICE);
+        //获取一个月内的信息
+        List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_MONTHLY,statt,endt);
+
+        if (queryUsageStats == null || queryUsageStats.isEmpty()) {
+            return null;
+        }
+        UsageStats recentStats = null;
+        for (UsageStats usageStats : queryUsageStats) {
+
 //            if(recentStats == null || recentStats.getLastTimeUsed() < usageStats.getLastTimeUsed()){
 //                recentStats = usageStats;
 //            }
-//        }
-//
-//        return recentStats.getPackageName();
-//    }
+            usageStats.getTotalTimeInForeground();
+        }
+
+        return recentStats.getPackageName();
+    }
 @Deprecated
     void clearMemory(Activity activity) {
         ActivityManager activityManger = (ActivityManager) activity.getSystemService(activity.ACTIVITY_SERVICE);

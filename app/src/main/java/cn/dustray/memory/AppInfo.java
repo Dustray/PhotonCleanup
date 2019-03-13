@@ -16,6 +16,8 @@ public class AppInfo {
 
     private double memorySize;
 
+
+
     public void setAppName(String appName) {
         this.appName = appName;
     }

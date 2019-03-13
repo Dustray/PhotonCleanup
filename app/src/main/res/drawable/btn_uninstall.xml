@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/colorPrimaryLight">
+    <item>
+        <shape android:useLevel="false">
+            <solid android:color="@color/colorPrimary" />
+            <padding
+                android:bottom="2dip"
+                android:left="2dip"
+                android:right="2dip"
+                android:top="2dip" />
+            <!--<stroke-->
+            <!--android:width="3dip"-->
+            <!--android:color="#1E90FF" /> &lt;!&ndash;边框宽度&ndash;&gt;-->
+            <!--<size-->
+            <!--android:width="35dip"-->
+            <!--android:height="35dip" /> &lt;!&ndash;边框&ndash;&gt;-->
+            <corners
+                android:bottomLeftRadius="2dip"
+                android:bottomRightRadius="2dip"
+                android:topLeftRadius="2dip"
+                android:topRightRadius="2dip" />
+
+
+        </shape>
+    </item>
+
+</ripple>

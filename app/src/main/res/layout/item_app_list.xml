@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/app_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@mipmap/ic_launcher" />
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:src="@mipmap/ic_launcher" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toLeftOf="@+id/btn_unstall"
+        android:layout_toRightOf="@+id/app_icon"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/app_icon"
+        app:layout_constraintRight_toLeftOf="@id/btn_unstall"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/app_icon"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="应用名称"
+            android:textColor="#333"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/app_package_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/app_package_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="cn.dustray.photoncleanup"
+            android:textColor="#999"
+            app:layout_constraintBottom_toTopOf="@+id/capacity_progressbar"
+            app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
+        <ProgressBar
+            android:id="@+id/capacity_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:max="100"
+            android:progress="50"
+            android:progressDrawable="@drawable/usetime_progressbar"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/app_package_name" />
+    </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/app_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="应用名称"
-                android:textColor="#333"
-                android:textSize="18dp" />
-
-            <TextView
-                android:id="@+id/app_package_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="cn.dustray.photoncleanup"
-                android:textColor="#999" />
-        </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/btn_unstall"
+        android:layout_width="45dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_uninstall"
+        android:text="卸载"
+        android:textColor="#fff" />
+</RelativeLayout>
