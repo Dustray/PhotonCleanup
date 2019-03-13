@@ -1,34 +1,25 @@
 package cn.dustray.memory;
 
 public class MemoryEntity {
-    private String totalMemory;
-    private String availableMemory;
-    private String canBeCleanMemory;
+    private int totalMemory;
+    private int availableMemory;
     private boolean isLowMemory;
     private float minimumMemoryScale;
 
-    public String getTotalMemory() {
+    public int getTotalMemory() {
         return totalMemory;
     }
 
-    public void setTotalMemory(String totalMemory) {
+    public void setTotalMemory(int totalMemory) {
         this.totalMemory = totalMemory;
     }
 
-    public String getAvailableMemory() {
+    public int getAvailableMemory() {
         return availableMemory;
     }
 
-    public void setAvailableMemory(String availableMemory) {
+    public void setAvailableMemory(int availableMemory) {
         this.availableMemory = availableMemory;
-    }
-
-    public String getCanBeCleanMemory() {
-        return canBeCleanMemory;
-    }
-
-    public void setCanBeCleanMemory(String canBeCleanMemory) {
-        this.canBeCleanMemory = canBeCleanMemory;
     }
 
     public boolean isLowMemory() {

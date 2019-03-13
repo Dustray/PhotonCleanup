@@ -28,11 +28,10 @@ public class Memory {
         ActivityManager activityManager = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
         activityManager.getMemoryInfo(mi);
         MemoryEntity entity = new MemoryEntity();
-        entity.setTotalMemory((mi.totalMem / 1024 / 1024) + " MB");
-        entity.setAvailableMemory((mi.availMem / 1024 / 1024) + " MB");
+        entity.setTotalMemory((int)(mi.totalMem / 1024 / 1024) );
+        entity.setAvailableMemory((int)(mi.availMem / 1024 / 1024) );
         entity.setMinimumMemoryScale(mi.availMem / mi.totalMem);
         entity.setLowMemory(mi.lowMemory);
-        entity.setCanBeCleanMemory(getAllAppMemory(activity) + " MB");
         //sb.append("剩余内存：" + (mi.availMem / 1024 / 1024) + "MB\n");
         //sb.append("总内存： " + (mi.totalMem / 1024 / 1024) + "MB\n");
         //sb.append("内存是否过低：" + mi.lowMemory);

@@ -1,5 +1,6 @@
 package cn.dustray.photoncleanup;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,10 +35,11 @@ public class MemoryFragment extends Fragment implements View.OnClickListener {
     private String mParam2;
 
     private Button btnChangeAppList;
-    private TextView totalMemory, availableMemory, textRemind;
+    private TextView totalMemory, availableMemory, textRemind,memoryPercent;
     private OnFragmentInteractionListener mListener;
     private RecyclerView appListRecycler;
     private AppListAdapter appListAdapter;
+    private ProgressBar processBar;
 
     public MemoryFragment() {
         // Required empty public constructor
@@ -85,6 +88,8 @@ public class MemoryFragment extends Fragment implements View.OnClickListener {
         totalMemory = view.findViewById(R.id.total_memory);
         availableMemory = view.findViewById(R.id.available_memory);
         textRemind = view.findViewById(R.id.text_remind);
+        processBar = view.findViewById(R.id.capacity_progressbar);
+        memoryPercent=view .findViewById(R.id.memory_percent);
         appListRecycler = view.findViewById(R.id.recycler_app_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -96,16 +101,35 @@ public class MemoryFragment extends Fragment implements View.OnClickListener {
 
     private void initData() {
         MemoryEntity entity = new MemoryUtil(getActivity()).getCurrentMeminfo();
-        totalMemory.setText(entity.getTotalMemory());
-        availableMemory.setText(entity.getAvailableMemory());
+        totalMemory.setText(MB2GB(entity.getTotalMemory()) + "GB");
+        availableMemory.setText(MB2GB(entity.getAvailableMemory()) + "GB");
+        int percent=100-(int)(100*((float)entity.getAvailableMemory()/entity.getTotalMemory()));
+      //  processBar.setProgress(percent);
+        setAnimation(processBar,processBar.getProgress(), percent);
+        memoryPercent.setText(percent+"%");
         textRemind.setText("Android 7.0之后无法再清理内存");
         loadAppList();
     }
 
+    private String MB2GB(int MB) {
+        float m = ((float) MB) / 1024;
+        return  String.format("%1.2f",m);
+    }
+    private void setAnimation(final ProgressBar view, final int mProgressBarBegin, final int mProgressBarEnd) {
+        ValueAnimator animator = ValueAnimator.ofInt(mProgressBarBegin, mProgressBarEnd).setDuration(500);
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                view.setProgress((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        animator.start();
+    }
     private void loadAppList() {
-        List<AppInfo> list=new MemoryUtil(getActivity()).getInstalledAppList();
+        List<AppInfo> list = new MemoryUtil(getActivity()).getInstalledAppList();
         //xToast.toast(getContext(),list.size()+"");
-        appListAdapter = new AppListAdapter(getContext(),list);
+        appListAdapter = new AppListAdapter(getContext(), list);
         appListRecycler.setAdapter(appListAdapter);
     }
 
